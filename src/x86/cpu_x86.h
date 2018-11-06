@@ -16,6 +16,8 @@
 //  Dependencies
 #include <stdint.h>
 #include <string>
+#include <iostream>
+
 namespace FeatureDetector{
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -75,14 +77,14 @@ public:
     cpu_x86();
     void detect_host();
 
-    void print() const;
+    void print(std::ostream& os = std::cout) const;
     static void print_host();
 
     static void cpuid(int32_t out[4], int32_t x);
     static std::string get_vendor_string();
 
 private:
-    static void print(const char* label, bool yes);
+    static void print(std::ostream& os, const char* label, bool yes);
 
     static bool detect_OS_x64();
     static bool detect_OS_AVX();

@@ -12,7 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 //  Dependencies
 #include <cstring>
-#include <iostream>
 #include "cpu_x86.h"
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +30,6 @@
 #endif
 
 namespace FeatureDetector{
-    using std::cout;
     using std::endl;
     using std::memcpy;
     using std::memset;
@@ -39,9 +37,9 @@ namespace FeatureDetector{
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void cpu_x86::print(const char* label, bool yes){
-    cout << label;
-    cout << (yes ? "Yes" : "No") << endl;
+void cpu_x86::print(std::ostream& os, const char* label, bool yes){
+    os << label;
+    os << (yes ? "Yes" : "No") << endl;
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -161,68 +159,68 @@ void cpu_x86::detect_host(){
         HW_XOP   = (info[2] & ((int)1 << 11)) != 0;
     }
 }
-void cpu_x86::print() const{
-    cout << "CPU Vendor:" << endl;
-    print("    AMD         = ", Vendor_AMD);
-    print("    Intel       = ", Vendor_Intel);
-    cout << endl;
+void cpu_x86::print(os, std::ostream& os) const{
+    os << "CPU Vendor:" << endl;
+    print(os, "    AMD         = ", Vendor_AMD);
+    print(os, "    Intel       = ", Vendor_Intel);
+    os << endl;
 
-    cout << "OS Features:" << endl;
+    os << "OS Features:" << endl;
 #ifdef _WIN32
-    print("    64-bit      = ", OS_x64);
+    print(os, "    64-bit      = ", OS_x64);
 #endif
-    print("    OS AVX      = ", OS_AVX);
-    print("    OS AVX512   = ", OS_AVX512);
-    cout << endl;
+    print(os, "    OS AVX      = ", OS_AVX);
+    print(os, "    OS AVX512   = ", OS_AVX512);
+    os << endl;
 
-    cout << "Hardware Features:" << endl;
-    print("    MMX         = ", HW_MMX);
-    print("    x64         = ", HW_x64);
-    print("    ABM         = ", HW_ABM);
-    print("    RDRAND      = ", HW_RDRAND);
-    print("    BMI1        = ", HW_BMI1);
-    print("    BMI2        = ", HW_BMI2);
-    print("    ADX         = ", HW_ADX);
-    print("    MPX         = ", HW_MPX);
-    print("    PREFETCHWT1 = ", HW_PREFETCHWT1);
-    cout << endl;
+    os << "Hardware Features:" << endl;
+    print(os, "    MMX         = ", HW_MMX);
+    print(os, "    x64         = ", HW_x64);
+    print(os, "    ABM         = ", HW_ABM);
+    print(os, "    RDRAND      = ", HW_RDRAND);
+    print(os, "    BMI1        = ", HW_BMI1);
+    print(os, "    BMI2        = ", HW_BMI2);
+    print(os, "    ADX         = ", HW_ADX);
+    print(os, "    MPX         = ", HW_MPX);
+    print(os, "    PREFETCHWT1 = ", HW_PREFETCHWT1);
+    os << endl;
 
-    cout << "SIMD: 128-bit" << endl;
-    print("    SSE         = ", HW_SSE);
-    print("    SSE2        = ", HW_SSE2);
-    print("    SSE3        = ", HW_SSE3);
-    print("    SSSE3       = ", HW_SSSE3);
-    print("    SSE4a       = ", HW_SSE4a);
-    print("    SSE4.1      = ", HW_SSE41);
-    print("    SSE4.2      = ", HW_SSE42);
-    print("    AES-NI      = ", HW_AES);
-    print("    SHA         = ", HW_SHA);
-    cout << endl;
+    os << "SIMD: 128-bit" << endl;
+    print(os, "    SSE         = ", HW_SSE);
+    print(os, "    SSE2        = ", HW_SSE2);
+    print(os, "    SSE3        = ", HW_SSE3);
+    print(os, "    SSSE3       = ", HW_SSSE3);
+    print(os, "    SSE4a       = ", HW_SSE4a);
+    print(os, "    SSE4.1      = ", HW_SSE41);
+    print(os, "    SSE4.2      = ", HW_SSE42);
+    print(os, "    AES-NI      = ", HW_AES);
+    print(os, "    SHA         = ", HW_SHA);
+    os << endl;
 
-    cout << "SIMD: 256-bit" << endl;
-    print("    AVX         = ", HW_AVX);
-    print("    XOP         = ", HW_XOP);
-    print("    FMA3        = ", HW_FMA3);
-    print("    FMA4        = ", HW_FMA4);
-    print("    AVX2        = ", HW_AVX2);
-    cout << endl;
+    os << "SIMD: 256-bit" << endl;
+    print(os, "    AVX         = ", HW_AVX);
+    print(os, "    XOP         = ", HW_XOP);
+    print(os, "    FMA3        = ", HW_FMA3);
+    print(os, "    FMA4        = ", HW_FMA4);
+    print(os, "    AVX2        = ", HW_AVX2);
+    os << endl;
 
-    cout << "SIMD: 512-bit" << endl;
-    print("    AVX512-F    = ", HW_AVX512_F);
-    print("    AVX512-CD   = ", HW_AVX512_CD);
-    print("    AVX512-PF   = ", HW_AVX512_PF);
-    print("    AVX512-ER   = ", HW_AVX512_ER);
-    print("    AVX512-VL   = ", HW_AVX512_VL);
-    print("    AVX512-BW   = ", HW_AVX512_BW);
-    print("    AVX512-DQ   = ", HW_AVX512_DQ);
-    print("    AVX512-IFMA = ", HW_AVX512_IFMA);
-    print("    AVX512-VBMI = ", HW_AVX512_VBMI);
-    cout << endl;
+    os << "SIMD: 512-bit" << endl;
+    print(os, "    AVX512-F    = ", HW_AVX512_F);
+    print(os, "    AVX512-CD   = ", HW_AVX512_CD);
+    print(os, "    AVX512-PF   = ", HW_AVX512_PF);
+    print(os, "    AVX512-ER   = ", HW_AVX512_ER);
+    print(os, "    AVX512-VL   = ", HW_AVX512_VL);
+    print(os, "    AVX512-BW   = ", HW_AVX512_BW);
+    print(os, "    AVX512-DQ   = ", HW_AVX512_DQ);
+    print(os, "    AVX512-IFMA = ", HW_AVX512_IFMA);
+    print(os, "    AVX512-VBMI = ", HW_AVX512_VBMI);
+    os << endl;
 
-    cout << "Summary:" << endl;
-    print("    Safe to use AVX:     ", HW_AVX && OS_AVX);
-    print("    Safe to use AVX512:  ", HW_AVX512_F && OS_AVX512);
-    cout << endl;
+    os << "Summary:" << endl;
+    print(os, "    Safe to use AVX:     ", HW_AVX && OS_AVX);
+    print(os, "    Safe to use AVX512:  ", HW_AVX512_F && OS_AVX512);
+    os << endl;
 }
 void cpu_x86::print_host(){
     cpu_x86 features;
