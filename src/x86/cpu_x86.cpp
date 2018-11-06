@@ -30,6 +30,7 @@
 #endif
 
 namespace FeatureDetector{
+    using std::ostream;
     using std::endl;
     using std::memcpy;
     using std::memset;
@@ -37,7 +38,7 @@ namespace FeatureDetector{
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void cpu_x86::print(std::ostream& os, const char* label, bool yes){
+void cpu_x86::print(ostream& os, const char* label, bool yes){
     os << label;
     os << (yes ? "Yes" : "No") << endl;
 }
@@ -159,7 +160,7 @@ void cpu_x86::detect_host(){
         HW_XOP   = (info[2] & ((int)1 << 11)) != 0;
     }
 }
-void cpu_x86::print(os, std::ostream& os) const{
+void cpu_x86::print(ostream& os) const{
     os << "CPU Vendor:" << endl;
     print(os, "    AMD         = ", Vendor_AMD);
     print(os, "    Intel       = ", Vendor_Intel);
